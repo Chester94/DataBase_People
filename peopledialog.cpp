@@ -45,8 +45,6 @@ PeopleDialog::PeopleDialog()
     mainLayout->addRow(buttons);
     setLayout(mainLayout);
 
-    //QObject::connect( sexEdit, SIGNAL( currentIndexChanged(QString) ), this, SLOT( ??? ) );
-
     QObject::connect( buttons, SIGNAL( accepted() ), this, SLOT( my_accept() ) );
     QObject::connect( buttons, SIGNAL( rejected() ), this, SLOT( reject() ) );
 }

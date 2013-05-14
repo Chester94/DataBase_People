@@ -5,7 +5,7 @@ MainWindow::MainWindow()
     model = NULL;
     view = NULL;
     openBase = closeBase = createBase = clearBase = addRecord = deleteRecord =
-            editRecord = showRecord = selectRecord = diagramma = NULL;
+            editRecord = showRecord = selectRecord = diagram = NULL;
 
     createMenu();
 
@@ -45,6 +45,7 @@ void MainWindow::createMenu()
     menuBar()->addMenu(menuFile);
     menuBar()->addMenu(menuEdit);
 
+    menuBar()->addAction( "Diagram", this, SLOT( diagramS() ) );
     menuBar()->addAction( "Help", this, SLOT( helpS() ) );
 }
 
@@ -61,7 +62,7 @@ void MainWindow::createWidgets()
     editRecord = new QPushButton("Edit record");
     showRecord = new QPushButton("Show record");
     selectRecord = new QPushButton("Select");
-    diagramma = new QPushButton("Diagramma");
+    diagram = new QPushButton("Diagram");
 }
 
 void MainWindow::setSize()
@@ -79,7 +80,7 @@ void MainWindow::setSize()
     editRecord->setFixedSize(72, 72);
     showRecord->setFixedSize(72, 72);
     selectRecord->setFixedSize(72, 72);
-    diagramma->setFixedSize(72, 72);
+    diagram->setFixedSize(72, 72);
 }
 
 void MainWindow::setButtonGroupLeftLayout()
@@ -121,7 +122,7 @@ void MainWindow::setButtonsGroupRightLayout()
     QLabel *clearL = new QLabel("<CENTER>Clear base</CENTER>");
     QLabel *delL = new QLabel("<CENTER>Delete record</CENTER>");
     QLabel *showL = new QLabel("<CENTER>Show record</CENTER>");
-    QLabel *diagL = new QLabel("<CENTER>Diagramma</CENTER>");
+    QLabel *diagL = new QLabel("<CENTER>Diagram</CENTER>");
 
     buttonGroupRight = new QVBoxLayout;
 
@@ -142,7 +143,7 @@ void MainWindow::setButtonsGroupRightLayout()
     buttonGroupRight->addWidget(showL);
 
     buttonGroupRight->addStretch();
-    buttonGroupRight->addWidget(diagramma);
+    buttonGroupRight->addWidget(diagram);
     buttonGroupRight->addWidget(diagL);
 
     buttonGroupRight->addStretch();
@@ -172,6 +173,7 @@ void MainWindow::setConnect()
     QObject::connect( editRecord, SIGNAL( pressed() ), this, SLOT( editRS() ) );
     QObject::connect( showRecord, SIGNAL( pressed() ), this, SLOT( showRS() ) );
     QObject::connect( selectRecord, SIGNAL( pressed() ), this, SLOT( selectRS() ) );
+    QObject::connect( diagram, SIGNAL( pressed() ), this, SLOT( diagramS() ) );
 }
 
 void MainWindow::setView()
@@ -217,8 +219,8 @@ void MainWindow::closeEvent(QCloseEvent *event)
         delete showRecord;
     if(selectRecord)
         delete selectRecord;
-    if(diagramma)
-        delete diagramma;
+    if(diagram)
+        delete diagram;
 
     if(buttonGroupLeft)
         delete buttonGroupLeft;
@@ -419,6 +421,55 @@ void MainWindow::showRS()
 
 void MainWindow::selectRS()
 {
+}
+
+void MainWindow::diagramS()
+{
+    /*QLabel* plbl = new QLabel;
+    plbl->setFixedSize(500, 765);
+
+    QObject::connect( this, SIGNAL( closeSignal() ), plbl, SLOT( close() ) );
+
+    QRect rect(plbl->contentsRect());
+    QPainter painter;
+
+    QImage resultImage(rect.size(), QImage::Format_ARGB32_Premultiplied);
+
+    painter.begin(&resultImage);
+    painter.setCompositionMode(QPainter::CompositionMode_SourceOver);
+    painter.eraseRect(rect);
+    painter.drawImage(rect, resultImage);
+    painter.end();
+
+    painter.begin(&resultImage);
+    painter.setCompositionMode(QPainter::CompositionMode_Darken);
+
+    for(int i = 0; i < 765; i++)
+    {
+        if(i<256)
+            painter.setPen(QPen(QColor(255, i, 0), 1));
+        else if(i < 512)
+            painter.setPen(QPen(QColor(511-i, 255, i-256), 1));
+            else
+                painter.setPen(QPen(QColor(i-512, 765-i, 255), 1));
+
+        painter.drawLine(0, i, 500, i);
+    }
+    painter.setCompositionMode(QPainter::CompositionMode_SourceOver);
+    painter.drawImage(rect, resultImage);
+    painter.end();
+
+    plbl->setPixmap(QPixmap::fromImage(resultImage));
+    plbl->show();*/
+
+    /*if(!model)
+        return;*/
+    DiagramDialog *diag;
+    diag = new DiagramDialog;
+
+    diag->exec();
+
+    delete diag;
 }
 
 void MainWindow::helpS()

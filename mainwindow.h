@@ -23,9 +23,12 @@
 
 #include <QList>
 
+#include <QPainter>
+
 #include "peopledialog.h"
 #include "peopleshowwidget.h"
 #include "sqltablemodel.h"
+#include "diagramdialog.h"
 
 class MainWindow : public QMainWindow
 {
@@ -45,7 +48,7 @@ private:
                 *editRecord,
                 *showRecord,
                 *selectRecord,
-                *diagramma;
+                *diagram;
 
     QVBoxLayout *buttonGroupLeft, *buttonGroupRight;
     QHBoxLayout *mainLayout;
@@ -78,6 +81,8 @@ public slots:
     void editRS();
     void showRS();
     void selectRS();
+    void diagramS();
+
     void helpS();
 };
 
