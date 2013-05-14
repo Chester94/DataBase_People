@@ -45,13 +45,11 @@ private:
                 *editRecord,
                 *showRecord,
                 *selectRecord,
-                *help;
+                *diagramma;
 
     QVBoxLayout *buttonGroupLeft, *buttonGroupRight;
     QHBoxLayout *mainLayout;
     QWidget *box;
-
-    QList <QLabel*> temp;
 
     void createMenu();
     void createWidgets();

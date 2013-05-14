@@ -5,7 +5,7 @@ MainWindow::MainWindow()
     model = NULL;
     view = NULL;
     openBase = closeBase = createBase = clearBase = addRecord = deleteRecord =
-            editRecord = showRecord = selectRecord = help = NULL;
+            editRecord = showRecord = selectRecord = diagramma = NULL;
 
     createMenu();
 
@@ -61,14 +61,14 @@ void MainWindow::createWidgets()
     editRecord = new QPushButton("Edit record");
     showRecord = new QPushButton("Show record");
     selectRecord = new QPushButton("Select");
-    help = new QPushButton("help");
+    diagramma = new QPushButton("Diagramma");
 }
 
 void MainWindow::setSize()
 {
     this->setFixedSize(1024, 660);
 
-    view->setFixedSize(732, 554);
+    view->setFixedSize(732, 569);
 
     openBase->setFixedSize(72, 72);
     closeBase->setFixedSize(72, 72);
@@ -79,7 +79,7 @@ void MainWindow::setSize()
     editRecord->setFixedSize(72, 72);
     showRecord->setFixedSize(72, 72);
     selectRecord->setFixedSize(72, 72);
-    help->setFixedSize(72, 72);
+    diagramma->setFixedSize(72, 72);
 }
 
 void MainWindow::setButtonGroupLeftLayout()
@@ -90,46 +90,61 @@ void MainWindow::setButtonGroupLeftLayout()
     QLabel *editL = new QLabel("<CENTER>Edit record</CENTER>");
     QLabel *selectL = new QLabel("<CENTER>Select</CENTER>");
 
-    temp.append(openL);
-    temp.append(createL);
-    temp.append(addL);
-    temp.append(editL);
-    temp.append(selectL);
-
     buttonGroupLeft = new QVBoxLayout;
 
     buttonGroupLeft->addStretch();
     buttonGroupLeft->addWidget(openBase);
     buttonGroupLeft->addWidget(openL);
+
     buttonGroupLeft->addStretch();
     buttonGroupLeft->addWidget(createBase);
     buttonGroupLeft->addWidget(createL);
+
     buttonGroupLeft->addStretch();
     buttonGroupLeft->addWidget(addRecord);
     buttonGroupLeft->addWidget(addL);
+
     buttonGroupLeft->addStretch();
     buttonGroupLeft->addWidget(editRecord);
     buttonGroupLeft->addWidget(editL);
+
     buttonGroupLeft->addStretch();
     buttonGroupLeft->addWidget(selectRecord);
     buttonGroupLeft->addWidget(selectL);
+
     buttonGroupLeft->addStretch();
 }
 
 void MainWindow::setButtonsGroupRightLayout()
 {
+    QLabel *closeL = new QLabel("<CENTER>Close base</CENTER>");
+    QLabel *clearL = new QLabel("<CENTER>Clear base</CENTER>");
+    QLabel *delL = new QLabel("<CENTER>Delete record</CENTER>");
+    QLabel *showL = new QLabel("<CENTER>Show record</CENTER>");
+    QLabel *diagL = new QLabel("<CENTER>Diagramma</CENTER>");
+
     buttonGroupRight = new QVBoxLayout;
 
     buttonGroupRight->addStretch();
     buttonGroupRight->addWidget(closeBase);
+    buttonGroupRight->addWidget(closeL);
+
     buttonGroupRight->addStretch();
     buttonGroupRight->addWidget(clearBase);
+    buttonGroupRight->addWidget(clearL);
+
     buttonGroupRight->addStretch();
     buttonGroupRight->addWidget(deleteRecord);
+    buttonGroupRight->addWidget(delL);
+
     buttonGroupRight->addStretch();
     buttonGroupRight->addWidget(showRecord);
+    buttonGroupRight->addWidget(showL);
+
     buttonGroupRight->addStretch();
-    buttonGroupRight->addWidget(help);
+    buttonGroupRight->addWidget(diagramma);
+    buttonGroupRight->addWidget(diagL);
+
     buttonGroupRight->addStretch();
 }
 
@@ -202,8 +217,8 @@ void MainWindow::closeEvent(QCloseEvent *event)
         delete showRecord;
     if(selectRecord)
         delete selectRecord;
-    if(help)
-        delete help;
+    if(diagramma)
+        delete diagramma;
 
     if(buttonGroupLeft)
         delete buttonGroupLeft;
