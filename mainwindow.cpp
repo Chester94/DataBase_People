@@ -42,10 +42,14 @@ void MainWindow::createMenu()
     menuEdit->addSeparator();
     menuEdit->addAction( "Delete record", this, SLOT( delRS() ) );
 
+    QMenu *menuDraw = new QMenu("Draw");
+    menuDraw->addAction( "Diagram", this, SLOT( diagramS() ) );
+    menuDraw->addAction( "Fun", this, SLOT( funS() ) );
+
     menuBar()->addMenu(menuFile);
     menuBar()->addMenu(menuEdit);
+    menuBar()->addMenu(menuDraw);
 
-    menuBar()->addAction( "Diagram", this, SLOT( diagramS() ) );
     menuBar()->addAction( "Help", this, SLOT( helpS() ) );
 }
 
@@ -425,12 +429,41 @@ void MainWindow::selectRS()
 
 void MainWindow::diagramS()
 {
-    /*QLabel* plbl = new QLabel;
-    plbl->setFixedSize(500, 765);
+    if(!model)
+        return;
 
-    QObject::connect( this, SIGNAL( closeSignal() ), plbl, SLOT( close() ) );
+    int i, n = model->rowCount();
+    int statistic[12] = {0,0,0,0,0,0,0,0,0,0,0,0};
 
-    QRect rect(plbl->contentsRect());
+    for(i = 0; i < n; i++ )
+    {
+        People p;
+        model->getRec(p, i);
+
+        statistic[p.getMonth()]++;
+    }
+
+    DiagramDialog *diag;
+    diag = new DiagramDialog(statistic);
+
+    diag->exec();
+
+    delete diag;
+}
+
+void MainWindow::helpS()
+{
+}
+
+void MainWindow::funS()
+{
+    QLabel* l = new QLabel;
+    l->setWindowTitle("Fun");
+    l->setFixedSize(500, 765);
+
+    QObject::connect( this, SIGNAL( closeSignal() ), l, SLOT( close() ) );
+
+    QRect rect(l->contentsRect());
     QPainter painter;
 
     QImage resultImage(rect.size(), QImage::Format_ARGB32_Premultiplied);
@@ -459,19 +492,6 @@ void MainWindow::diagramS()
     painter.drawImage(rect, resultImage);
     painter.end();
 
-    plbl->setPixmap(QPixmap::fromImage(resultImage));
-    plbl->show();*/
-
-    /*if(!model)
-        return;*/
-    DiagramDialog *diag;
-    diag = new DiagramDialog;
-
-    diag->exec();
-
-    delete diag;
-}
-
-void MainWindow::helpS()
-{
+    l->setPixmap(QPixmap::fromImage(resultImage));
+    l->show();
 }

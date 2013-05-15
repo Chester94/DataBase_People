@@ -84,6 +84,8 @@ public slots:
     void diagramS();
 
     void helpS();
+
+    void funS();
 };
 
 #endif // MAINWINDOW_H

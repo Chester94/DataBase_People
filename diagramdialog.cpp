@@ -7,15 +7,17 @@ int DiagramDialog::c(double n)
     return n;
 }
 
-DiagramDialog::DiagramDialog()
+DiagramDialog::DiagramDialog(int *statustic)
 {
     diag = new QLabel;
 
-    this->setFixedSize(640, 301);
-    diag->setFixedSize(600, 201);
+    this->setFixedSize(640, 501);
+    diag->setFixedSize(600, 401);
 
     months = new QLabel*[12];
     counts = new QLabel*[12];
+
+    int max=0;
 
     for(int i = 0; i<12; i++)
     {
@@ -25,7 +27,10 @@ DiagramDialog::DiagramDialog()
         months[i]->setFixedSize(44, 20);
         counts[i]->setFixedSize(44, 20);
 
-        counts[i]->setText("<CENTER>3</CENTER>");
+        counts[i]->setText("<CENTER>"+QString::number(statustic[i])+"</CENTER>");
+
+        if( statustic[i] > max )
+            max = statustic[i];
     }
 
     months[0]->setText("<CENTER>Jan</CENTER>");
@@ -86,7 +91,7 @@ DiagramDialog::DiagramDialog()
     painter.begin(&resultImage);
     painter.setCompositionMode(QPainter::CompositionMode_Darken);
 
-    for(int i=0; i < 201; i++)
+    for(int i=0; i < 402; i++)
     {
 
         /*if(i < 67)
@@ -96,25 +101,16 @@ DiagramDialog::DiagramDialog()
         else
             painter.setPen( QPen( QColor( c(mc*i-512), c(765-mc*i), 255), 1 ) );*/
 
-        if(i < 67)
+        if(i < 134)
             painter.setPen( QPen( QColor( 255-c(mc*i), c(mc*i), 255 ), 1 ) );
-        else if(i < 134)
+        else if(i < 268)
             painter.setPen( QPen( QColor( c(mc*i-255), 255, c(512-mc*i) ), 1 ) );
         else
             painter.setPen( QPen( QColor( 255, c(770-mc*i), 0), 1 ) );
 
-        painter.drawLine(0, 200-i, 50, 200-i);
-        painter.drawLine(50, 200-i/2, 100, 200-i/2);
-        painter.drawLine(100, 200-i/3, 150, 200-i/3);
-        painter.drawLine(150, 200-i/4, 200, 200-i/4);
-        painter.drawLine(200, 200-i/3, 250, 200-i/3);
-        painter.drawLine(250, 200-i/2, 300, 200-i/2);
-        painter.drawLine(300, 200-i, 350, 200-i);
-        painter.drawLine(350, 200-i/2, 400, 200-i/2);
-        painter.drawLine(400, 200-i/3, 450, 200-i/3);
-        painter.drawLine(450, 200-i/4, 500, 200-i/4);
-        painter.drawLine(500, 200-i/3, 550, 200-i/3);
-        painter.drawLine(550, 200-i/2, 600, 200-i/2);
+        for(int j = 0; j < 12; j++)
+            if(statustic[j])
+                painter.drawLine(j*50+2, 400-(i*statustic[j]/max/1.1), (j+1)*50-2, 400-(i*statustic[j]/max/1.1));
     }
     painter.setCompositionMode(QPainter::CompositionMode_SourceOver);
     painter.drawImage(rect, resultImage);

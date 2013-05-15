@@ -1,7 +1,7 @@
 #ifndef DIAGRAMDIALOG_H
 #define DIAGRAMDIALOG_H
 
-#define mc 3.8636363636363636363636363636364
+#define mc /*3.8636363636363636363636363636364*/1.9318181818181818181818181818182
 
 #include <QVBoxLayout>
 #include <QHBoxLayout>
@@ -23,7 +23,7 @@ private:
     int c(double n);
 
 public:
-    DiagramDialog();
+    DiagramDialog(int *statustic);
 };
 
 #endif // DIAGRAMDIALOG_H
