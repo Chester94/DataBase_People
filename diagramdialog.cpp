@@ -38,8 +38,8 @@ DiagramDialog::DiagramDialog(int *statustic)
     months[2]->setText("<CENTER>Mar</CENTER>");
     months[3]->setText("<CENTER>Apr</CENTER>");
     months[4]->setText("<CENTER>May</CENTER>");
-    months[5]->setText("<CENTER>June</CENTER>");
-    months[6]->setText("<CENTER>July</CENTER>");
+    months[5]->setText("<CENTER>Jun</CENTER>");
+    months[6]->setText("<CENTER>Jul</CENTER>");
     months[7]->setText("<CENTER>Aug</CENTER>");
     months[8]->setText("<CENTER>Sep</CENTER>");
     months[9]->setText("<CENTER>Oct</CENTER>");
