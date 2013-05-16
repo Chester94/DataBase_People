@@ -429,6 +429,57 @@ void MainWindow::selectRS()
         return;
 
     SelectDialog *dial = new SelectDialog;
+    QString str = "";
+
+    if( dial->exec() == QDialog::Accepted )
+    {
+        if( !dial->getShowAll() )
+        {
+            str = "Birth >= '";
+            str += dial->getFromDate().toString("yyyy-MM-dd");
+            str += "'";
+
+            str += " AND ";
+
+            str += " Birth <= '";
+            str += dial->getToDate().toString("yyyy-MM-dd");
+            str += "'";
+        }
+
+        QThread *thread = new QThread;
+        Select *sel = new Select;
+
+        sel->setModel(model);
+        sel->setStr(str);
+
+        sel->moveToThread(thread);
+
+        QObject::connect( thread, SIGNAL( started() ), sel, SLOT( process() ) );
+        QObject::connect( sel, SIGNAL( finished() ), thread, SLOT( quit() ) );
+        QObject::connect( sel, SIGNAL( finished() ), sel, SLOT( deleteLater() ) );
+        QObject::connect( thread, SIGNAL( finished() ), thread, SLOT( deleteLater() ) );
+
+        thread->start();
+    }
+
+    delete dial;
+
+    /*QThread *thread = new QThread;
+    Select *sel = new Select;
+
+    sel->setModel(model);
+    sel->setStr(str);
+
+    sel->moveToThread(thread);
+
+    QObject::connect( thread, SIGNAL( started() ), sel, SLOT( process() ) );
+    QObject::connect( sel, SIGNAL( finished() ), thread, SLOT( quit() ) );
+    QObject::connect( sel, SIGNAL( finished() ), sel, SLOT( deleteLater() ) );
+    QObject::connect( thread, SIGNAL( finished() ), thread, SLOT( deleteLater() ) );
+
+    thread->start();*/
+
+    /*SelectDialog *dial = new SelectDialog;
 
     if( dial->exec() == QDialog::Accepted )
     {
@@ -452,6 +503,8 @@ void MainWindow::selectRS()
 
         model->select();
     }
+
+    delete dial;*/
 }
 
 void MainWindow::diagramS()

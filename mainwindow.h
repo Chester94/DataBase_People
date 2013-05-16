@@ -15,6 +15,8 @@
 #include <QModelIndex>
 #include <QDate>
 
+#include <QThread>
+
 #include <QLabel>
 
 #include <QCloseEvent>
@@ -30,6 +32,7 @@
 #include "sqltablemodel.h"
 #include "diagramdialog.h"
 #include "selectdialog.h"
+#include "select.h"
 
 class MainWindow : public QMainWindow
 {

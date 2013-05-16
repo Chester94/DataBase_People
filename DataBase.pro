@@ -7,7 +7,8 @@ SOURCES += \
     peopleshowwidget.cpp \
     peoplefull.cpp \
     selectdialog.cpp \
-    diagramdialog.cpp
+    diagramdialog.cpp \
+    select.cpp
 QT += sql
 
 HEADERS += \
@@ -18,7 +19,8 @@ HEADERS += \
     peopleshowwidget.h \
     peoplefull.h \
     selectdialog.h \
-    diagramdialog.h
+    diagramdialog.h \
+    select.h
 
 RESOURCES +=
 RC_FILE = myapp.rc
