@@ -486,7 +486,7 @@ void MainWindow::funS()
 {
     QLabel* l = new QLabel;
     l->setWindowTitle("Fun");
-    l->setFixedSize(500, 765);
+    l->setFixedSize(765, 500);
 
     QObject::connect( this, SIGNAL( closeSignal() ), l, SLOT( close() ) );
 
@@ -513,7 +513,7 @@ void MainWindow::funS()
             else
                 painter.setPen(QPen(QColor(i-512, 765-i, 255), 1));
 
-        painter.drawLine(0, i, 500, i);
+        painter.drawLine(i, 0, i, 500);
     }
     painter.setCompositionMode(QPainter::CompositionMode_SourceOver);
     painter.drawImage(rect, resultImage);
@@ -521,4 +521,6 @@ void MainWindow::funS()
 
     l->setPixmap(QPixmap::fromImage(resultImage));
     l->show();
+
+    QObject::connect( this, SIGNAL( closeSignal() ), l, SLOT( close() ) );
 }
