@@ -21,8 +21,6 @@ class PeopleDialog : public QDialog
 {
     Q_OBJECT
 private:
-    QDialogButtonBox *buttons;
-
     QLineEdit *surnameEdit,
               *nameEdit,
               *patronomicEdit;
@@ -30,6 +28,8 @@ private:
               *educationEdit,
               *matrial_statusEdit;
     QCalendarWidget *dateEdit;
+
+    QDialogButtonBox *buttons;
 
 public:
     PeopleDialog();

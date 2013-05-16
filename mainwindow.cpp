@@ -425,6 +425,33 @@ void MainWindow::showRS()
 
 void MainWindow::selectRS()
 {
+    if(!model)
+        return;
+
+    SelectDialog *dial = new SelectDialog;
+
+    if( dial->exec() == QDialog::Accepted )
+    {
+        if( dial->getShowAll() )
+            model->setFilter("");
+        else
+        {
+            QString str;
+            str = "Birth >= '";
+            str += dial->getFromDate().toString("yyyy-MM-dd");
+            str += "'";
+
+            str += " AND ";
+
+            str += " Birth <= '";
+            str += dial->getToDate().toString("yyyy-MM-dd");
+            str += "'";
+
+            model->setFilter(str);
+        }
+
+        model->select();
+    }
 }
 
 void MainWindow::diagramS()

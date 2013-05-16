@@ -29,6 +29,7 @@
 #include "peopleshowwidget.h"
 #include "sqltablemodel.h"
 #include "diagramdialog.h"
+#include "selectdialog.h"
 
 class MainWindow : public QMainWindow
 {
