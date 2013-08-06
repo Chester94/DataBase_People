@@ -13,16 +13,20 @@ class PeopleShowWidget : public QWidget
 {
     Q_OBJECT
 private:
+    // переменные соответсвуют полям таблицы из базы данных, кроме age
     QLabel *ID,
            *Surname,
            *Name,
            *Partonimic,
            *Sex,
            *Birth,
-           *Age,
+           *Age, // не является полем таблицы
            *Education,
            *MatrialStatus,
            *EntryDate;
+
+    void createWidget(); // выделение памяти
+    void setMainLayout(); // установка расположения виджетов
 
 public:
     PeopleShowWidget(QWidget *parent = 0);

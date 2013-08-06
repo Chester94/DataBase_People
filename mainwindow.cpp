@@ -234,7 +234,7 @@ void MainWindow::openBS()
         model = new SqlTableModel;
         model->setTable("my_table");
         model->select();
-        model->setEditStrategy(QSqlTableModel::OnFieldChange);
+        model->setEditStrategy(QSqlTableModel::OnFieldChange); // записывать изменения сразу
 
         setView();
 
@@ -419,6 +419,7 @@ void MainWindow::selectRS()
             str += "'";
         }
 
+        // работа с потоками; выборка выполняется в отдельном потоке
         QThread *thread = new QThread;
         Select *sel = new Select;
 
@@ -446,9 +447,9 @@ void MainWindow::diagramS()
     int i, n = model->rowCount();
     int statistic[12] = {0,0,0,0,0,0,0,0,0,0,0,0};
 
+    People p;
     for(i = 0; i < n; i++ )
     {
-        People p;
         model->getRec(p, i);
 
         statistic[p.getMonth()]++;

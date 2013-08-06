@@ -104,18 +104,21 @@ void PeopleDialog::setPeople(People &p)
 
 void PeopleDialog::my_accept()
 {
+    // если длина фамилии 0 - нужно ввести, установить фокус на поле ввода фамилии
     if( surnameEdit->text().trimmed().length() == 0 )
     {
         surnameEdit->setFocus();
         return;
     }
 
+    // аналогично вышенаписанному
     if( nameEdit->text().trimmed().length() == 0 )
     {
         nameEdit->setFocus();
         return;
     }
 
+    // аналогично вышенаписанному
     if( patronomicEdit->text().trimmed().length() == 0 )
     {
         patronomicEdit->setFocus();

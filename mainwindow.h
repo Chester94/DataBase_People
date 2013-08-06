@@ -39,10 +39,11 @@ class MainWindow : public QMainWindow
     Q_OBJECT
 
 private:
-    QSqlDatabase base;
-    SqlTableModel *model;
-    QTableView *view;
+    QSqlDatabase base; // база данных (объект для связи)
+    SqlTableModel *model; // МВК модель
+    QTableView *view; // МВК вид
 
+    // необходимые кнопки для работы с базой
     QPushButton *openBase,
                 *closeBase,
                 *createBase,
@@ -58,34 +59,38 @@ private:
     QHBoxLayout *mainLayout;
     QWidget *box;
 
-    void createMenu();
-    void createWidgets();
-    void setSize();
+    void createMenu(); // создание меню (вверху окна)
+    void createWidgets(); // создание виджетов (кнопок), установка текста на кнопках
+    void setSize(); // установка размеров рабочего окна, установка размеров кнопок и области отображения данных
+
+    //функции расположения виджетов
     void setButtonGroupLeftLayout();
     void setButtonsGroupRightLayout();
     void setMainLayout();
-    void setConnect();
-    void setView();
 
+    void setConnect(); // установка связей
+    void setView(); // установка размеров столбцов при отображении, настройка видимости столбцов
+
+    // виртуальный метод, для корректоного завершения при нажатии "крестик"
     virtual void closeEvent(QCloseEvent *event);
 
 public:
     MainWindow();
 
 signals:
-    void closeSignal();
+    void closeSignal(); // генерируется при закрытии приложения
 
 public slots:
-    void openBS();
-    void closeBS();
-    void createBS();
-    void clearBS();
-    void addRS();
-    void delRS();
-    void editRS();
-    void showRS();
-    void selectRS();
-    void diagramS();
+    void openBS(); // открыть базу
+    void closeBS(); // закрыть базу
+    void createBS(); // создать
+    void clearBS(); // очистить
+    void addRS(); // добавить запись
+    void delRS(); // удалить
+    void editRS(); // редактировать
+    void showRS(); // показать всю информацию о записи
+    void selectRS(); // выборка по дате рождения
+    void diagramS(); // нарисовать диагрмму, количество родившихся в каждом месяце
 };
 
 #endif // MAINWINDOW_H

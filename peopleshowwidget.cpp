@@ -3,32 +3,9 @@
 PeopleShowWidget::PeopleShowWidget(QWidget *parent) :
     QWidget(parent)
 {
-    ID = new QLabel;
-    Surname = new QLabel;
-    Name = new QLabel;
-    Partonimic = new QLabel;
-    Sex = new QLabel;
-    Birth = new QLabel;
-    Age = new QLabel;
-    Education = new QLabel;
-    MatrialStatus = new QLabel;
-    EntryDate = new QLabel;
+    createWidget();
 
-    QFormLayout *mainLayout;
-    mainLayout = new QFormLayout;
-
-    mainLayout->addRow("ID: ", ID);
-    mainLayout->addRow("Surname: ", Surname);
-    mainLayout->addRow("Name: ", Name);
-    mainLayout->addRow("Patronimic: ", Partonimic);
-    mainLayout->addRow("Sex: ", Sex);
-    mainLayout->addRow("Date of birth: ", Birth);
-    mainLayout->addRow("Age: ", Age);
-    mainLayout->addRow("Education: ", Education);
-    mainLayout->addRow("Matrial status: ", MatrialStatus);
-    mainLayout->addRow("Date of entry into the database: ", EntryDate);
-
-    setLayout(mainLayout);
+    setMainLayout();
 }
 
 void PeopleShowWidget::setPeopleFull(PeopleFull &p)
@@ -44,4 +21,37 @@ void PeopleShowWidget::setPeopleFull(PeopleFull &p)
     Education->setText( p.getEducation() );
     MatrialStatus->setText( p.getMatrial_Status() );
     EntryDate->setText( p.getEntryDate().toString("dd.MM.yyyy") );
+}
+
+void PeopleShowWidget::createWidget()
+{
+    ID = new QLabel;
+    Surname = new QLabel;
+    Name = new QLabel;
+    Partonimic = new QLabel;
+    Sex = new QLabel;
+    Birth = new QLabel;
+    Age = new QLabel;
+    Education = new QLabel;
+    MatrialStatus = new QLabel;
+    EntryDate = new QLabel;
+}
+
+void PeopleShowWidget::setMainLayout()
+{
+    QFormLayout *mainLayout;
+    mainLayout = new QFormLayout;
+
+    mainLayout->addRow("ID: ", ID);
+    mainLayout->addRow("Surname: ", Surname);
+    mainLayout->addRow("Name: ", Name);
+    mainLayout->addRow("Patronimic: ", Partonimic);
+    mainLayout->addRow("Sex: ", Sex);
+    mainLayout->addRow("Date of birth: ", Birth);
+    mainLayout->addRow("Age: ", Age);
+    mainLayout->addRow("Education: ", Education);
+    mainLayout->addRow("Matrial status: ", MatrialStatus);
+    mainLayout->addRow("Date of entry into the database: ", EntryDate);
+
+    setLayout(mainLayout);
 }

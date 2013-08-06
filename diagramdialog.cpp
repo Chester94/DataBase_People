@@ -26,7 +26,7 @@ void DiagramDialog::setLabel(int *statustic)
     months = new QLabel*[12];
     counts = new QLabel*[12];
 
-    for(int i = 0; i<12; i++)
+    for(int i = 0; i < 12; i++)
     {
         months[i] = new QLabel;
         counts[i] = new QLabel;
@@ -34,6 +34,7 @@ void DiagramDialog::setLabel(int *statustic)
         months[i]->setFixedSize(44, 20);
         counts[i]->setFixedSize(44, 20);
 
+        // <CENTER> </CENTER> выравнивание по центру
         counts[i]->setText("<CENTER>"+QString::number(statustic[i])+"</CENTER>");
     }
 
@@ -96,6 +97,7 @@ void DiagramDialog::drawing(int *statustic)
     QRect rect(diag->contentsRect());
     QPainter painter;
 
+    // подготовительные работы
     QImage resultImage(rect.size(), QImage::Format_ARGB32_Premultiplied);
 
     painter.begin(&resultImage);
@@ -104,6 +106,7 @@ void DiagramDialog::drawing(int *statustic)
     painter.drawImage(rect, resultImage);
     painter.end();
 
+    // рисование столбцов диаграммы
     painter.begin(&resultImage);
     painter.setCompositionMode(QPainter::CompositionMode_Darken);
 
@@ -125,5 +128,6 @@ void DiagramDialog::drawing(int *statustic)
     painter.drawImage(rect, resultImage);
     painter.end();
 
+    // конечная устновка
     diag->setPixmap(QPixmap::fromImage(resultImage));
 }

@@ -7,6 +7,7 @@
 class People
 {
 protected:
+    // поля таблицы из базы данных
     QString surname;
     QString name;
     QString patronomic;

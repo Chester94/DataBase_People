@@ -21,6 +21,7 @@ class PeopleDialog : public QDialog
 {
     Q_OBJECT
 private:
+    // переменные соответсвуют полям таблицы из базы данных
     QLineEdit *surnameEdit,
               *nameEdit,
               *patronomicEdit;
@@ -31,15 +32,15 @@ private:
 
     QDialogButtonBox *buttons;
 
-    void createWidgets();
-    void setValidator();
-    void createComboBox();
-    void setCalendar();
-    void setMainLayout();
+    void createWidgets(); // выделение памяти
+    void setValidator(); // установка валидаторов (регулярные выражения, проверка вводимых данных)
+    void createComboBox(); // выделение памяти по списки (пол, образование, семейное положение)
+    void setCalendar(); // минимальная и максимальная дата в календаре
+    void setMainLayout(); // установка расположения виджетов
 
 public:
     PeopleDialog();
-    void setPeople(People &p);
+    void setPeople(People &p); // устанавливает начальные значения в полях ввода (если необходимо)
 
     QString getSurname() {return surnameEdit->text();}
     QString getName() {return nameEdit->text();}
@@ -50,7 +51,7 @@ public:
     QString getMatrial_Status() {return matrial_statusEdit->currentText();}
 
 public slots:
-    void my_accept();
+    void my_accept(); // измененный слот подтверждения
 };
 
 #endif // PEOPLEDIALOG_H

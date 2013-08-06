@@ -6,6 +6,7 @@ SqlTableModel::SqlTableModel()
 
 void SqlTableModel::setRec(People &p, int row)
 {
+    // строка row, столбец 1 - установить значение фамилии, далее аналогично
     setData( index(row, 1), p.getSurname() );
     setData( index(row, 2), p.getName() );
     setData( index(row, 3), p.getPatronomic() );
@@ -19,16 +20,16 @@ void SqlTableModel::setRec(People &p, int row)
 void SqlTableModel::addRec(People &p)
 {
     int row = rowCount();
-    insertRows(row, 1);
-    setRec(p, row);
-    submitAll();
-    setFilter("");
-    select();
+    insertRows(row, 1); // выделить пустую строку в таблице
+    setRec(p, row); // заполнить её
+    submitAll(); // принять изменения
+    setFilter(""); // пустой фильтр
+    select(); // выбрать всех (т.к. пустой фильтр)
 }
 
 void SqlTableModel::delRec(int row)
 {
-    deleteRowFromTable(row);
+    deleteRowFromTable(row); // удалить стороку из таблицы
     select();
 }
 
@@ -38,18 +39,19 @@ void SqlTableModel::editRec(People &p, int row)
     QString str = "ID = %1";
     str = str.arg( in.data().toLongLong() );
 
-    setFilter(str);
+    setFilter(str); // произвесте выборку по ID (ключ)
     select();
-    setRec(p, 0);
+    setRec(p, 0); // установить новые значения
 
-    submitAll();
-    setFilter("");
-    select();
+    submitAll(); // принять изменения
+    setFilter(""); // пустой фильтр
+    select(); // выбрать всех (т.к. пустой фильтр)
 }
 
 void SqlTableModel::getRec(People &p, int row)
 {
     QModelIndex in = index(row, 1);
+    // извлечение данных из базы, преобразование к типу QString, далее аналогично
     p.setSurname( in.data().toString() );
 
     in = index(row, 2);
@@ -72,12 +74,13 @@ void SqlTableModel::getRec(People &p, int row)
 
 void SqlTableModel::getRecShow(PeopleFull &p, int row)
 {
-    getRec(p, row);
+    getRec(p, row); // извлечение обычных данных
 
+    // извлечение дополнительных
     QModelIndex in = index(row, 0);
     p.setID( in.data().toLongLong() );
 
-    p.setAge();
+    p.setAge(); // установка возраста, не является извлечением данных
 
     p.setEntryDate( index(row, 8).data().toDate() );
 }

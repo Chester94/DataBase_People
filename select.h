@@ -3,6 +3,7 @@
 
 #include <sqltablemodel.h>
 
+// используется при работе с потоками (совершает выборку из таблицы)
 class Select : public QObject
 {
     Q_OBJECT

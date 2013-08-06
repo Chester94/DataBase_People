@@ -6,9 +6,11 @@
 class PeopleFull : public People
 {
 private:
+    // дополнительные поля таблицы (не требуются для ввода пользователем, но нужны для отображения)
     long int ID;
-    int age;
     QDate entryDate;
+
+    int age; // не является полем таблицы, т.к. динамический параметр (зависит от текущей даты)
 
 public:
     PeopleFull();
