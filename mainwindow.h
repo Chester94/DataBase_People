@@ -86,10 +86,6 @@ public slots:
     void showRS();
     void selectRS();
     void diagramS();
-
-    void helpS();
-
-    void funS();
 };
 
 #endif // MAINWINDOW_H

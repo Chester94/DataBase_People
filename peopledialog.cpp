@@ -2,6 +2,22 @@
 
 PeopleDialog::PeopleDialog()
 {
+    createWidgets();
+
+    setValidator();
+
+    createComboBox();
+
+    setCalendar();
+
+    setMainLayout();
+
+    QObject::connect( buttons, SIGNAL( accepted() ), this, SLOT( my_accept() ) );
+    QObject::connect( buttons, SIGNAL( rejected() ), this, SLOT( reject() ) );
+}
+
+void PeopleDialog::createWidgets()
+{
     buttons = new QDialogButtonBox(QDialogButtonBox::Ok | QDialogButtonBox::Cancel);
 
     surnameEdit = new QLineEdit;
@@ -11,13 +27,19 @@ PeopleDialog::PeopleDialog()
     dateEdit = new QCalendarWidget;
     educationEdit = new QComboBox;
     matrial_statusEdit = new QComboBox;
+}
 
+void PeopleDialog::setValidator()
+{
     QRegExp fioReg("[A-Z][a-z]{,29}");
     QRegExpValidator *fioValidator = new QRegExpValidator(fioReg, this);
     surnameEdit->setValidator(fioValidator);
     nameEdit->setValidator(fioValidator);
     patronomicEdit->setValidator(fioValidator);
+}
 
+void PeopleDialog::createComboBox()
+{
     QStringList sex;
     sex << "man" << "women";
     sexEdit->addItems(sex);
@@ -29,10 +51,16 @@ PeopleDialog::PeopleDialog()
     QStringList matrial_status;
     matrial_status << "free" << "married" << "divorced";
     matrial_statusEdit->addItems(matrial_status);
+}
 
+void PeopleDialog::setCalendar()
+{
     dateEdit->setMinimumDate( QDate(1900, 1, 1) );
     dateEdit->setMaximumDate( QDate::currentDate() );
+}
 
+void PeopleDialog::setMainLayout()
+{
     QFormLayout *mainLayout = new QFormLayout;
 
     mainLayout->addRow("Surname", surnameEdit);
@@ -44,9 +72,6 @@ PeopleDialog::PeopleDialog()
     mainLayout->addRow("Matrial status", matrial_statusEdit);
     mainLayout->addRow(buttons);
     setLayout(mainLayout);
-
-    QObject::connect( buttons, SIGNAL( accepted() ), this, SLOT( my_accept() ) );
-    QObject::connect( buttons, SIGNAL( rejected() ), this, SLOT( reject() ) );
 }
 
 void PeopleDialog::setPeople(People &p)

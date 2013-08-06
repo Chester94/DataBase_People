@@ -10,13 +10,10 @@ void SqlTableModel::setRec(People &p, int row)
     setData( index(row, 2), p.getName() );
     setData( index(row, 3), p.getPatronomic() );
     setData( index(row, 4), p.getSex() );
-    setData( index(row, 5), p.getDate()/*.toString("dd.MM.yyyy")*/ );
+    setData( index(row, 5), p.getDate() );
     setData( index(row, 6), p.getEducation() );
     setData( index(row, 7), p.getMatrial_Status() );
     setData( index(row, 8), QDate::currentDate() );
-    //setData( index(row, 8), p.getAge() );
-    //setData( index(row, 9), p.getEducation() );
-    //setData( index(row, 10), p.getMatrial_Status() );
 }
 
 void SqlTableModel::addRec(People &p)
@@ -64,7 +61,6 @@ void SqlTableModel::getRec(People &p, int row)
     in = index(row, 4);
     p.setSex( in.data().toString() );
 
-    //qDebug() << index(row, 5).data();
     p.setDate( index(row, 5).data().toDate() );
 
     in = index(row, 6);

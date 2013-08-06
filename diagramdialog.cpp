@@ -14,10 +14,17 @@ DiagramDialog::DiagramDialog(int *statustic)
     this->setFixedSize(640, 501);
     diag->setFixedSize(600, 401);
 
+    setLabel(statustic);
+
+    setMainLayout();
+
+    drawing(statustic);
+}
+
+void DiagramDialog::setLabel(int *statustic)
+{
     months = new QLabel*[12];
     counts = new QLabel*[12];
-
-    int max=0;
 
     for(int i = 0; i<12; i++)
     {
@@ -28,9 +35,6 @@ DiagramDialog::DiagramDialog(int *statustic)
         counts[i]->setFixedSize(44, 20);
 
         counts[i]->setText("<CENTER>"+QString::number(statustic[i])+"</CENTER>");
-
-        if( statustic[i] > max )
-            max = statustic[i];
     }
 
     months[0]->setText("<CENTER>Jan</CENTER>");
@@ -45,7 +49,10 @@ DiagramDialog::DiagramDialog(int *statustic)
     months[9]->setText("<CENTER>Oct</CENTER>");
     months[10]->setText("<CENTER>Nov</CENTER>");
     months[11]->setText("<CENTER>Dec</CENTER>");
+}
 
+void DiagramDialog::setMainLayout()
+{
     QVBoxLayout *mainLayout = new QVBoxLayout;
     QHBoxLayout *diagLayout = new QHBoxLayout;
     QHBoxLayout *monthsLayout = new QHBoxLayout;
@@ -76,6 +83,15 @@ DiagramDialog::DiagramDialog(int *statustic)
     mainLayout->addStretch();
 
     this->setLayout(mainLayout);
+}
+
+void DiagramDialog::drawing(int *statustic)
+{
+    int max=0;
+
+    for(int i = 0; i<12; i++)
+        if( statustic[i] > max )
+            max = statustic[i];
 
     QRect rect(diag->contentsRect());
     QPainter painter;
@@ -93,14 +109,6 @@ DiagramDialog::DiagramDialog(int *statustic)
 
     for(int i=0; i < 402; i++)
     {
-
-        /*if(i < 67)
-            painter.setPen( QPen( QColor( 255, c(mc*i), 0 ), 1 ) );
-        else if(i < 134)
-            painter.setPen( QPen( QColor( c(511-mc*i), 255, c(mc*i-256) ), 1 ) );
-        else
-            painter.setPen( QPen( QColor( c(mc*i-512), c(765-mc*i), 255), 1 ) );*/
-
         if(i < 134)
             painter.setPen( QPen( QColor( 255-c(mc*i), c(mc*i), 255 ), 1 ) );
         else if(i < 268)
@@ -112,6 +120,7 @@ DiagramDialog::DiagramDialog(int *statustic)
             if(statustic[j])
                 painter.drawLine(j*50+2, 400-(i*statustic[j]/max/1.1), (j+1)*50-2, 400-(i*statustic[j]/max/1.1));
     }
+
     painter.setCompositionMode(QPainter::CompositionMode_SourceOver);
     painter.drawImage(rect, resultImage);
     painter.end();

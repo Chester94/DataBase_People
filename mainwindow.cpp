@@ -42,15 +42,10 @@ void MainWindow::createMenu()
     menuEdit->addSeparator();
     menuEdit->addAction( "Delete record", this, SLOT( delRS() ) );
 
-    QMenu *menuDraw = new QMenu("Draw");
-    menuDraw->addAction( "Diagram", this, SLOT( diagramS() ) );
-    menuDraw->addAction( "Fun", this, SLOT( funS() ) );
-
     menuBar()->addMenu(menuFile);
     menuBar()->addMenu(menuEdit);
-    menuBar()->addMenu(menuDraw);
 
-    menuBar()->addAction( "Help", this, SLOT( helpS() ) );
+    menuBar()->addAction( "Diagram", this, SLOT( diagramS() ) );
 }
 
 void MainWindow::createWidgets()
@@ -89,66 +84,44 @@ void MainWindow::setSize()
 
 void MainWindow::setButtonGroupLeftLayout()
 {
-    QLabel *openL = new QLabel("<CENTER>Open base</CENTER>");
-    QLabel *createL = new QLabel("<CENTER>Create base</CENTER>");
-    QLabel *addL = new QLabel("<CENTER>Add record</CENTER>");
-    QLabel *editL = new QLabel("<CENTER>Edit record</CENTER>");
-    QLabel *selectL = new QLabel("<CENTER>Select</CENTER>");
-
     buttonGroupLeft = new QVBoxLayout;
 
     buttonGroupLeft->addStretch();
     buttonGroupLeft->addWidget(openBase);
-    buttonGroupLeft->addWidget(openL);
 
     buttonGroupLeft->addStretch();
     buttonGroupLeft->addWidget(createBase);
-    buttonGroupLeft->addWidget(createL);
 
     buttonGroupLeft->addStretch();
     buttonGroupLeft->addWidget(addRecord);
-    buttonGroupLeft->addWidget(addL);
 
     buttonGroupLeft->addStretch();
     buttonGroupLeft->addWidget(editRecord);
-    buttonGroupLeft->addWidget(editL);
 
     buttonGroupLeft->addStretch();
     buttonGroupLeft->addWidget(selectRecord);
-    buttonGroupLeft->addWidget(selectL);
 
     buttonGroupLeft->addStretch();
 }
 
 void MainWindow::setButtonsGroupRightLayout()
 {
-    QLabel *closeL = new QLabel("<CENTER>Close base</CENTER>");
-    QLabel *clearL = new QLabel("<CENTER>Clear base</CENTER>");
-    QLabel *delL = new QLabel("<CENTER>Delete record</CENTER>");
-    QLabel *showL = new QLabel("<CENTER>Show record</CENTER>");
-    QLabel *diagL = new QLabel("<CENTER>Diagram</CENTER>");
-
     buttonGroupRight = new QVBoxLayout;
 
     buttonGroupRight->addStretch();
     buttonGroupRight->addWidget(closeBase);
-    buttonGroupRight->addWidget(closeL);
 
     buttonGroupRight->addStretch();
     buttonGroupRight->addWidget(clearBase);
-    buttonGroupRight->addWidget(clearL);
 
     buttonGroupRight->addStretch();
     buttonGroupRight->addWidget(deleteRecord);
-    buttonGroupRight->addWidget(delL);
 
     buttonGroupRight->addStretch();
     buttonGroupRight->addWidget(showRecord);
-    buttonGroupRight->addWidget(showL);
 
     buttonGroupRight->addStretch();
     buttonGroupRight->addWidget(diagram);
-    buttonGroupRight->addWidget(diagL);
 
     buttonGroupRight->addStretch();
 }
@@ -463,48 +436,6 @@ void MainWindow::selectRS()
     }
 
     delete dial;
-
-    /*QThread *thread = new QThread;
-    Select *sel = new Select;
-
-    sel->setModel(model);
-    sel->setStr(str);
-
-    sel->moveToThread(thread);
-
-    QObject::connect( thread, SIGNAL( started() ), sel, SLOT( process() ) );
-    QObject::connect( sel, SIGNAL( finished() ), thread, SLOT( quit() ) );
-    QObject::connect( sel, SIGNAL( finished() ), sel, SLOT( deleteLater() ) );
-    QObject::connect( thread, SIGNAL( finished() ), thread, SLOT( deleteLater() ) );
-
-    thread->start();*/
-
-    /*SelectDialog *dial = new SelectDialog;
-
-    if( dial->exec() == QDialog::Accepted )
-    {
-        if( dial->getShowAll() )
-            model->setFilter("");
-        else
-        {
-            QString str;
-            str = "Birth >= '";
-            str += dial->getFromDate().toString("yyyy-MM-dd");
-            str += "'";
-
-            str += " AND ";
-
-            str += " Birth <= '";
-            str += dial->getToDate().toString("yyyy-MM-dd");
-            str += "'";
-
-            model->setFilter(str);
-        }
-
-        model->select();
-    }
-
-    delete dial;*/
 }
 
 void MainWindow::diagramS()
@@ -529,51 +460,4 @@ void MainWindow::diagramS()
     diag->exec();
 
     delete diag;
-}
-
-void MainWindow::helpS()
-{
-}
-
-void MainWindow::funS()
-{
-    QLabel* l = new QLabel;
-    l->setWindowTitle("Fun");
-    l->setFixedSize(765, 500);
-
-    QObject::connect( this, SIGNAL( closeSignal() ), l, SLOT( close() ) );
-
-    QRect rect(l->contentsRect());
-    QPainter painter;
-
-    QImage resultImage(rect.size(), QImage::Format_ARGB32_Premultiplied);
-
-    painter.begin(&resultImage);
-    painter.setCompositionMode(QPainter::CompositionMode_SourceOver);
-    painter.eraseRect(rect);
-    painter.drawImage(rect, resultImage);
-    painter.end();
-
-    painter.begin(&resultImage);
-    painter.setCompositionMode(QPainter::CompositionMode_Darken);
-
-    for(int i = 0; i < 765; i++)
-    {
-        if(i<256)
-            painter.setPen(QPen(QColor(255, i, 0), 1));
-        else if(i < 512)
-            painter.setPen(QPen(QColor(511-i, 255, i-256), 1));
-            else
-                painter.setPen(QPen(QColor(i-512, 765-i, 255), 1));
-
-        painter.drawLine(i, 0, i, 500);
-    }
-    painter.setCompositionMode(QPainter::CompositionMode_SourceOver);
-    painter.drawImage(rect, resultImage);
-    painter.end();
-
-    l->setPixmap(QPixmap::fromImage(resultImage));
-    l->show();
-
-    QObject::connect( this, SIGNAL( closeSignal() ), l, SLOT( close() ) );
 }

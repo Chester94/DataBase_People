@@ -22,6 +22,10 @@ private:
 
     int c(double n);
 
+    void setLabel(int *statustic);
+    void setMainLayout();
+    void drawing(int *statustic);
+
 public:
     DiagramDialog(int *statustic);
 };

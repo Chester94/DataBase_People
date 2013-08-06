@@ -1,8 +1,6 @@
 #ifndef SELECT_H
 #define SELECT_H
 
-//#include <QObject>
-
 #include <sqltablemodel.h>
 
 class Select : public QObject

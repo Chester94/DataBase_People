@@ -31,6 +31,12 @@ private:
 
     QDialogButtonBox *buttons;
 
+    void createWidgets();
+    void setValidator();
+    void createComboBox();
+    void setCalendar();
+    void setMainLayout();
+
 public:
     PeopleDialog();
     void setPeople(People &p);
